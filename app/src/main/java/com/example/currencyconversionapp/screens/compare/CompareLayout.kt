@@ -21,13 +21,17 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -52,6 +56,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -66,7 +71,7 @@ import com.example.currencyconversionapp.R
 @Preview(showBackground = true, device = Devices.PIXEL_C, name = "Large Tablet")
 @Composable
 fun CompareLayout(){
-TopImageWithText()
+//TopImageWithText()
     CompareBox()
     //LastBox()
    // MyDialogUIPreview()
@@ -169,49 +174,44 @@ AND TARGET CURRENCY TEXT
 @Composable
 private fun CompareBox(){
 
+    var amountFrom by remember {
+        mutableStateOf(1)
+    }
+    var amountTo by remember {
+        mutableStateOf(1)
+    }
 
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .height(100.dp)
-       ) {
 
 
-       Column (modifier = Modifier
-           .fillMaxSize()
-           .width(100.dp)){
+    Column(
+        modifier = Modifier
+            .background(Color.White)
+            .fillMaxSize()
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp)
+        ) {
+            Text(
+                text = "Amount",
+                style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight(600)),
+                textAlign = TextAlign.Start,
+                modifier = Modifier
+                    .weight(0.3F)
+                    .padding(start = 36.dp)
+            )
+           //  Spacer(modifier = Modifier.width(1.dp))
 
-         Row  {
-               Text(
-                   modifier = Modifier
-                       .height(340.dp)
-                       .width(200.dp)
-                       .padding(25.dp)
-                       .wrapContentSize(Alignment.BottomStart),
-                   text = "Amount",
-                   style = TextStyle(
-                       fontSize = 20.sp,
-                       fontFamily = FontFamily.Monospace,
-                       fontWeight = FontWeight(600),
-                       color = Color(0xFF000000),
-                   )
-               )
-             Spacer(modifier = Modifier.width(1.dp))
+            Text(
+                modifier = Modifier
+                    .weight(0.8F)
+                    .padding(end = 40.dp),
+                text = "From", textAlign = TextAlign.Center,
+                fontSize = 14.sp,
+                fontWeight = FontWeight(600),
 
-             Text(
-                 modifier = Modifier
-                     // .fillMaxWidth()
-                     .height(340.dp)
-                     //  .width(200.dp)
-                     .padding(horizontal = 5.dp, vertical = 25.dp)
-                     .wrapContentSize(Alignment.BottomEnd),
-                 text = "From",
-                 style = TextStyle(
-                     fontSize = 20.sp,
-                     fontFamily = FontFamily.Monospace,
-                     fontWeight = FontWeight(600),
-                     color = Color(0xFF000000),
-                 )
-             )
+                )
 
 
 
@@ -219,38 +219,39 @@ private fun CompareBox(){
            }
 
 
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 0.dp)) {
-             TextField(
-                 value = "hello", onValueChange = {},
-                 colors = TextFieldDefaults.textFieldColors(
-                     containerColor = Color(0xFFF9F9F9),
-                     focusedIndicatorColor = Color.Transparent,
-                     unfocusedIndicatorColor = Color.Transparent,
-                     disabledIndicatorColor = Color.Transparent
-                 ),
-                 modifier = Modifier
-                     .border(
-                         width = 1.dp, color = Color(0xFFC5C5C5),
-                         shape = RoundedCornerShape(size = 20.dp)
-                     )
+        Row(
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            TextField(
+                value = amountFrom.toString(),
+                onValueChange = {
+                    amountFrom = it.toIntOrNull() ?: 1
+                },
+                shape = RoundedCornerShape(20.dp),
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = Color(0xFFF9F9F9),
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent
+                ), modifier = Modifier
+                    .border(width = 0.5.dp, color = Color(0xFFC5C5C5), shape = RoundedCornerShape(size = 20.dp))
+                    .padding(0.5.dp)
+                    .width(160.dp)
+                    .height(48.dp)
+                    .background(color = Color(0xFFF9F9F9), shape = RoundedCornerShape(size = 20.dp))
 
-                     .padding(1.dp)
-                     .width(130.dp)
-                     .height(60.dp)
-                     .background(
-                         color = Color(0xFFF9F9F9),
-                         shape = RoundedCornerShape(size = 20.dp)
-                     ),
+            )
 
-                 )
-
-
-
-            Row (modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 50.dp)){
+            Row(
+                modifier = Modifier
+                    ,
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceAround
+            ) {
 
          DropDownMenu()
 
@@ -262,43 +263,147 @@ private fun CompareBox(){
 
 
 
-           Row  {
-               Text(
-                   modifier = Modifier
-                       .height(340.dp)
-                       .width(200.dp)
-                       .padding(25.dp)
-                       .wrapContentSize(Alignment.TopStart),
-                   text = "Targeted Currency",
-                   style = TextStyle(
-                       fontSize = 14.sp,
-                       fontFamily = FontFamily.Monospace,
-                       fontWeight = FontWeight(600),
-                       color = Color(0xFF000000),
-                   )
-               )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp)
+        ) {
+            Text(
+                text = "Targeted Currency",
+                style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight(600)),
+                textAlign = TextAlign.Start,
+                modifier = Modifier
+                    .weight(0.3F)
+                    .padding(start = 20.dp)
+            )
+            Text(
+                modifier = Modifier
+                    .weight(0.4F)
+                    .padding(end = 30.dp),
+                text = "Targeted Currency", textAlign = TextAlign.Center,
+                fontSize = 14.sp,
+                fontWeight = FontWeight(600),
+
+                )
+        }
 
 
-               Spacer(modifier = Modifier.width(1.dp))
+        Row(
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(
+                modifier = Modifier,
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceAround
+            ) {
+               DropDownMenu()
+            }
+            DropDownMenu()
+        }
 
-               Text(
-                   modifier = Modifier
-                       // .fillMaxWidth()
-                       .height(340.dp)
-                       //  .width(200.dp)
-                       .padding(horizontal = 5.dp, vertical = 25.dp)
-                       .wrapContentSize(Alignment.TopEnd),
-                   text = "Targeted Currency",
-                   style = TextStyle(
-                       fontSize = 14.sp,
-                       fontFamily = FontFamily.Monospace,
-                       fontWeight = FontWeight(600),
-                       color = Color(0xFF000000),
-                   )
-               )
+
+        Row(
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(
+                modifier = Modifier
+                    .clip(shape = RoundedCornerShape(20.dp)),
+                   // .width(180.dp),
+                    ///.background(color = Color(0xFFF9F9F9)),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceAround
+            ) {
+                TextField(
+                    value = amountFrom.toString(),
+                    onValueChange = {
+                        amountFrom = it.toIntOrNull() ?: 1
+                    },
+                    shape = RoundedCornerShape(20.dp),
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = Color(0xFFF9F9F9),
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        disabledIndicatorColor = Color.Transparent
+                    ), modifier = Modifier
+                        .border(width = 0.5.dp, color = Color(0xFFC5C5C5), shape = RoundedCornerShape(size = 20.dp))
+                        .padding(0.5.dp)
+                        .width(160.dp)
+                        .height(48.dp)
+                        .background(color = Color(0xFFF9F9F9), shape = RoundedCornerShape(size = 20.dp))
+
+                )
+            }
+            TextField(
+                value = amountFrom.toString(),
+                onValueChange = {
+                    amountFrom = it.toIntOrNull() ?: 1
+                },
+                shape = RoundedCornerShape(20.dp),
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = Color(0xFFF9F9F9),
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent
+                ), modifier = Modifier
+                    .border(width = 0.5.dp, color = Color(0xFFC5C5C5), shape = RoundedCornerShape(size = 20.dp))
+                    .padding(0.5.dp)
+                    .width(160.dp)
+                    .height(48.dp)
+                    .background(color = Color(0xFFF9F9F9), shape = RoundedCornerShape(size = 20.dp))
+
+            )
 
 
-           }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Spacer(modifier = Modifier.height(18.dp))
+        Button(
+            onClick = { /*TODO*/ },
+            shape = RoundedCornerShape(20.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 25.dp, end = 25.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF363636))
+
+        ) {
+            Text(text = "Compare", fontSize = 16.sp, fontWeight = FontWeight(600))
+        }
+        Spacer(modifier = Modifier.height(25.dp))
+        Spacer(
+            Modifier
+                .fillMaxWidth()
+                .padding(start = 25.dp, end = 25.dp)
+                .height(1.5.dp)
+                .background(color = Color(0xFFE9E9E9)))
+
+
+
+
+
+
 
 
 
@@ -309,7 +414,7 @@ private fun CompareBox(){
 
 
 
-}
+
 
 
 //@OptIn(ExperimentalMaterial3Api::class)
