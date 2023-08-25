@@ -47,7 +47,14 @@ MyDialogUIPreview()
 
 }
 
-
+val currenciesList = listOf<Currencies>(
+    Currencies(R.drawable.united_states_of_america, "USD", "American Dollars"),
+    Currencies(R.drawable.united_kingdom, "GBP", "Pound Sterling"),
+    Currencies(R.drawable.japan, "JPY", "Japanese Yen"),
+    Currencies(R.drawable.united_states_of_america, "USD", "American Dollars"),
+    Currencies(R.drawable.united_kingdom, "GBP", "Pound Sterling"),
+    Currencies(R.drawable.japan, "JPY", "Japanese Yen")
+)
 
 
 
@@ -89,14 +96,14 @@ MyDialogUIPreview()
             Surface(shape = RoundedCornerShape(30.dp)) {
 
 
-                val pfpList = listOf<Currencies>(
-                    Currencies(R.drawable.united_states_of_america, "USD", "American Dollars"),
-                    Currencies(R.drawable.united_kingdom, "GBP", "Pound Sterling"),
-                    Currencies(R.drawable.japan, "JPY", "Japanese Yen"),
-                    Currencies(R.drawable.united_states_of_america, "USD", "American Dollars"),
-                    Currencies(R.drawable.united_kingdom, "GBP", "Pound Sterling"),
-                    Currencies(R.drawable.japan, "JPY", "Japanese Yen")
-                )
+//                val currenciesList = listOf<Currencies>(
+//                    Currencies(R.drawable.united_states_of_america, "USD", "American Dollars"),
+//                    Currencies(R.drawable.united_kingdom, "GBP", "Pound Sterling"),
+//                    Currencies(R.drawable.japan, "JPY", "Japanese Yen"),
+//                    Currencies(R.drawable.united_states_of_america, "USD", "American Dollars"),
+//                    Currencies(R.drawable.united_kingdom, "GBP", "Pound Sterling"),
+//                    Currencies(R.drawable.japan, "JPY", "Japanese Yen")
+//                )
 
 
 
@@ -134,7 +141,7 @@ MyDialogUIPreview()
                              * CALLING DISPLAY CURRENCIES FUNCTION TO DISPLAY EACH CURRENCY OBJECT IN LIST IN
                              * A LAZY COLUMN
                              * */
-                            items(pfpList) {
+                            items(currenciesList) {
 
                                 DisplayCurrencies(
                                     currency = Currencies(

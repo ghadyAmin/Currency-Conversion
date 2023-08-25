@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
@@ -41,6 +43,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.currencyconversionapp.R
 import com.example.currencyconversionapp.screens.compare.DropDownMenu
+import com.example.currencyconversionapp.screens.favourite.Currencies
+import com.example.currencyconversionapp.screens.favourite.DisplayCurrencies
+import com.example.currencyconversionapp.screens.favourite.currenciesList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,6 +61,7 @@ fun ConvertScreen() {
         modifier = Modifier
             .background(Color.White)
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
     ) {
         Row(
             modifier = Modifier
@@ -167,7 +173,11 @@ fun ConvertScreen() {
                     unfocusedIndicatorColor = Color.Transparent,
                     disabledIndicatorColor = Color.Transparent
                 ), modifier = Modifier
-                    .border(width = 0.5.dp, color = Color(0xFFC5C5C5), shape = RoundedCornerShape(size = 20.dp))
+                    .border(
+                        width = 0.5.dp,
+                        color = Color(0xFFC5C5C5),
+                        shape = RoundedCornerShape(size = 20.dp)
+                    )
                     .width(130.dp)
                     .height(48.dp)
             )
@@ -210,20 +220,18 @@ fun ConvertScreen() {
             Text(text = "live exchange rate", fontSize = 16.sp, fontWeight = FontWeight(600))
             Card(
                 modifier = Modifier
-                   // .background(Color.White)
+                    // .background(Color.White)
                     .border(
                         width = 1.dp,
                         color = Color(0xFFE9E9E9),
                         shape = RoundedCornerShape(size = 18.dp)
                     )
-                  //  .height(50.dp)
                     .height(35.dp)
                     .width(135.dp)
                     .padding(10.dp)
             ) {
                 Row(
                     modifier = Modifier.background(Color.White)
-
 
 
                 ) {
@@ -244,7 +252,16 @@ fun ConvertScreen() {
             fontWeight = FontWeight(400)
         )
 
+     currenciesList.forEach{
+         DisplayCurrencies(
+             currency = Currencies(
+                 image = it.image,
+                 id = it.id,
+                 title = it.title
+             )
+         )
 
+     }
 
 
 

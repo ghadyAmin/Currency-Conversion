@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
                 var convertScreen by remember {
                     mutableStateOf(true)
                 }
-                Column() {
+                Column(modifier = Modifier) {
 
 
                     MainScreen(onConvertClick = { convertScreen = true },
