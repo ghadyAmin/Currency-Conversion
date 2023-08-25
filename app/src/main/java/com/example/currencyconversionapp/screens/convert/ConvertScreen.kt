@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -31,12 +32,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.currencyconversionapp.R
 import com.example.currencyconversionapp.screens.compare.DropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -189,4 +192,65 @@ fun ConvertScreen() {
                 .padding(start = 25.dp, end = 25.dp)
                 .height(1.5.dp)
                 .background(color = Color(0xFFE9E9E9)))
+
+
+
+
+
+         Spacer(modifier = Modifier.height(34.dp))
+
+
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically, modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 25.dp, end = 25.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "live exchange rate", fontSize = 16.sp, fontWeight = FontWeight(600))
+            Card(
+                modifier = Modifier
+                   // .background(Color.White)
+                    .border(
+                        width = 1.dp,
+                        color = Color(0xFFE9E9E9),
+                        shape = RoundedCornerShape(size = 18.dp)
+                    )
+                  //  .height(50.dp)
+                    .height(35.dp)
+                    .width(135.dp)
+                    .padding(10.dp)
+            ) {
+                Row(
+                    modifier = Modifier.background(Color.White)
+
+
+
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.plus_1),
+                        contentDescription = "", modifier = Modifier.padding(end = 5.dp)
+                    )
+                    Text(text = "Add to Favorites", color = Color.Black, fontWeight = FontWeight(500),
+                        fontSize = 12.sp)
+                }
+            }
+
+        }
+        Text(
+            text = "My Portfolio",
+            modifier = Modifier.padding(start = 25.dp, top = 15.dp),
+            fontSize = 18.sp,
+            fontWeight = FontWeight(400)
+        )
+
+
+
+
+
+
+
+
+
+
     }}
