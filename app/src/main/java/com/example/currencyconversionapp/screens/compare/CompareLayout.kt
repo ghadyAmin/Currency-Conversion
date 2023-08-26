@@ -54,6 +54,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -195,7 +196,8 @@ private fun CompareBox(){
         ) {
             Text(
                 text = "Amount",
-                style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight(600)),
+                style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight(600),
+                    fontFamily = FontFamily(Font(R.font.poppins_regular))),
                 textAlign = TextAlign.Start,
                 modifier = Modifier
                     .weight(0.3F)
@@ -210,6 +212,7 @@ private fun CompareBox(){
                 text = "From", textAlign = TextAlign.Center,
                 fontSize = 14.sp,
                 fontWeight = FontWeight(600),
+                fontFamily = FontFamily(Font(R.font.poppins_regular))
 
                 )
 
@@ -272,6 +275,7 @@ private fun CompareBox(){
                 text = "Targeted Currency",
                 style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight(600)),
                 textAlign = TextAlign.Start,
+                fontFamily = FontFamily(Font(R.font.poppins_regular)),
                 modifier = Modifier
                     .weight(0.3F)
                     .padding(start = 20.dp)
@@ -283,6 +287,7 @@ private fun CompareBox(){
                 text = "Targeted Currency", textAlign = TextAlign.Center,
                 fontSize = 14.sp,
                 fontWeight = FontWeight(600),
+                fontFamily = FontFamily(Font(R.font.poppins_regular))
 
                 )
         }
@@ -389,7 +394,11 @@ private fun CompareBox(){
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF363636))
 
         ) {
-            Text(text = "Compare", fontSize = 16.sp, fontWeight = FontWeight(600))
+            Text(text = "Compare",
+                fontSize = 16.sp,
+                fontWeight = FontWeight(600),
+                fontFamily = FontFamily(Font(R.font.poppins_regular))
+            )
         }
         Spacer(modifier = Modifier.height(25.dp))
         Spacer(

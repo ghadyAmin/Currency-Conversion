@@ -30,10 +30,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
+import com.example.currencyconversionapp.R
 
 // DROP DOW MENU FUNCTION
 
@@ -96,7 +99,9 @@ fun DropDownMenu(){
             .width(with(LocalDensity.current){textFieldSize.width.toDp()})) {
 
         list.forEach { label ->
-            DropdownMenuItem(text = { Text(text = label, fontSize = 14.sp) }, onClick = {selectedItem = label
+            DropdownMenuItem(text = { Text(text = label, fontSize = 14.sp, fontFamily = FontFamily(
+                Font(R.font.poppins_regular)
+            )) }, onClick = {selectedItem = label
                 expanded = false })
         }
 

@@ -1,8 +1,17 @@
 package com.example.currencyconversionapp
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -36,13 +45,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.currencyconversionapp.screens.compare.CompareLayout
 import com.example.currencyconversionapp.screens.convert.ConvertScreen
+import com.example.currencyconversionapp.screens.favourite.CustomDialogUI
 import com.example.currencyconversionapp.screens.favourite.FavouriteScreen
+import com.example.currencyconversionapp.screens.favourite.MyDialogUIPreview
 import com.example.currencyconversionapp.ui.theme.CurrencyConversionAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -53,7 +66,19 @@ class MainActivity : ComponentActivity() {
                 var convertScreen by remember {
                     mutableStateOf(true)
                 }
-                Column(modifier = Modifier) {
+
+
+
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+
+//FavouriteScreen()
+
+//CustomDialogUI()
+
+                    Column(modifier = Modifier) {
 
 
                     MainScreen(onConvertClick = { convertScreen = true },
@@ -65,18 +90,36 @@ class MainActivity : ComponentActivity() {
                     ) {
                         if (convertScreen) {
                             ConvertScreen()
+
                         } else {
                            CompareLayout()
                         }
                     }
                 }
+
+
+
+
+                }
+
         }
     }
 }}
-
 @Composable
-fun MainScreen(onConvertClick: () -> Unit, onCompareClick: () -> Unit) {
-//var _selectedItem=selectedItem
+fun MainScreen(
+    onConvertClick: () -> Unit,
+    onCompareClick: () -> Unit
+) {
+    var textColorConvertState by remember {
+        mutableStateOf(Color.White)
+    }
+    var textColorCompareState by remember {
+        mutableStateOf(Color(0xFFF8F8F8))
+    }
+
+//    var visibility by remember {
+//        mutableStateOf(false)
+//    }
 
     Box(
         modifier = Modifier
@@ -112,51 +155,104 @@ fun MainScreen(onConvertClick: () -> Unit, onCompareClick: () -> Unit) {
                     color = Color.White,
                     fontWeight = FontWeight(600),
                     fontSize = 24.sp,
+                    fontFamily = FontFamily(Font(R.font.montserrat_regular))
 
                     )
                 Text(
                     text = "check live foreign exchange rates",
                     color = Color.White,
                     fontWeight = FontWeight(400),
-                    fontSize = 18.sp
+                    fontSize = 18.sp,
+                    fontFamily = FontFamily(Font(R.font.montserrat_regular))
                 )
             }
         }
         Card(
-            modifier = Modifier
+            shape = RoundedCornerShape(22.dp), modifier = Modifier
                 .align(Alignment.BottomCenter)
         ) {
             Row(
                 modifier = Modifier
-                    .background(Color.White),
-                horizontalArrangement = Arrangement.spacedBy(50.dp)
+                    .background(Color(0xFFF8F8F8)),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
                     text = "Convert",
                     Modifier
+
                         .background(
-                            color = Color.White,
+
+                            color = textColorConvertState, shape =
+                            RoundedCornerShape(22.dp)
                         )
-                        .clip(shape = RoundedCornerShape(20.dp))
+                        .padding(start = 20.dp)
+                        .width(100.dp)
+
                         .padding(
-                            9.dp
+                            10.dp
                         )
-                        .clickable { onConvertClick() },
-                    style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight(400))
+                        .clickable {
+                            textColorConvertState = Color.White
+                            textColorCompareState = Color(0xFFF8F8F8)
+
+                            onConvertClick(
+
+                            )
+                            //visibility = true
+                        },
+
+                    style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight(400)),
+                    fontFamily = FontFamily(Font(R.font.poppins_regular))
                 )
+
+
+
+//                AnimatedVisibility(visible = visibility,
+//                    enter = slideInHorizontally(animationSpec = tween(durationMillis = 200)) { fullWidth ->
+//                        // Offsets the content by 1/3 of its width to the left, and slide towards right
+//                        // Overwrites the default animation with tween for this slide animation.
+//                        -fullWidth / 3
+//                    } + fadeIn(
+//                        // Overwrites the default animation with tween
+//                        animationSpec = tween(durationMillis = 200)
+//                    ),
+//                    exit = slideOutHorizontally(animationSpec = spring(stiffness = Spring.StiffnessHigh)) {
+//                        // Overwrites the ending position of the slide-out to 200 (pixels) to the right
+//                        200
+//                    } + fadeOut()
+//
+//                ) {
+//
+//                }
+
+
+
+
                 Text(
 
                     text = "Compare",
                     Modifier
                         .background(
-                            color = Color.White,
+                            color = textColorCompareState, shape = RoundedCornerShape(22.dp)
                         )
-                        .clip(shape = RoundedCornerShape(20.dp))
+
                         .padding(
-                            9.dp
+                            start = 20.dp
                         )
-                        .clickable { onCompareClick() },
-                    style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight(400))
+                        .width(100.dp)
+                        .padding(10.dp)
+                        .clickable {
+                            textColorCompareState = Color.White
+                            textColorConvertState = Color(0xFFF8F8F8)
+
+
+                            onCompareClick()
+
+
+                        },
+                    style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight(400)),
+                    fontFamily = FontFamily(Font(R.font.poppins_regular))
+
                 )
             }
         }
